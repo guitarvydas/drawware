@@ -26,8 +26,15 @@
     <textarea id="output" rows="15" cols="110" style="font-family:Courier;font-size:small">
     </textarea>
 
+    <br>
+    <br>
+    <br>
+      
+    <p>under-the-hood details (no need to look at this...):</p>
+    <br>
+
     <p>svg source code:</p>
-    <textarea id="src" rows="15" cols="110" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+    <textarea id="src" rows="15" cols="110" style="font-family:Courier;font-size:x-small;background-color:lightgray">
         <html>
           <body>
 
@@ -51,7 +58,7 @@
     </textarea>
     
     <p>svg grammar:</p>
-    <textarea id="grammar" rows="5" cols="110" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+    <textarea id="grammar" rows="5" cols="110" style="font-family:Courier;font-size:x-small;background-color:lightgray">
 CodeDrawing {
   Main = "<html>" "<body>" H1 Drawing "</body>" "</html>"
   H1 = "<h1>" stuff "</h1>"
@@ -78,7 +85,7 @@ CodeDrawing {
     </textarea>
     
     <p>Fab for Python (fabricator, rewriter - src⤇Python):</p>
-    <textarea id="fabricate" rows="5" cols="130" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+    <textarea id="fabricate" rows="5" cols="130" style="font-family:Courier;font-size:x-small;background-color:lightgray">
 CodeDrawing {
   Main [khtml kbody H1 Drawing kbodyend khtmlend] = ‛«Drawing»’
   H1 [kh1 stuff kh1end] = ‛«kh1»«stuff»«kh1end»’
@@ -104,6 +111,10 @@ CodeDrawing {
   dq  [c] = ‛«c»’
 }
 
+    </textarea>
+
+    <p>Fab spec transpiled to JavaScript (empty until Python is generated (see button above)) (don't look at this unless you are into self-flagellation)</p>
+    <textarea id="fabjs" rows="5" cols="130" style="font-family:Courier;font-size:x-small;background-color:lightgray">
     </textarea>
     
     <!-- Ohm-JS -->
@@ -131,10 +142,14 @@ CodeDrawing {
               var indented = indenter (transpiled);
               document.getElementById('output').value = indented;
               document.getElementById('status').innerHTML = "OK";
+              // more detail for expository purposes only
+              var intermediateJS = compilefmt (fabricate, ohm);
+              document.getElementById ('fabjs').value = intermediateJS;
           } else {
               document.getElementById('output').value = transpiled;
               document.getElementById('status').innerHTML = "FAILED " + errormessage;
           }
+
       }
     </script>
     

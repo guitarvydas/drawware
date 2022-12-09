@@ -1,0 +1,2 @@
+install:
+	multigit -r

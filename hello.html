@@ -1,0 +1,135 @@
+<html>
+  <body>
+    
+    <h1>SVG as a Programming Language</h1>
+    <h3>Very Basic - simply shows that SVG can be transpiled</h3>
+    
+    <button onclick="generate ()">Transpile to Python</button>
+
+    <p id="status" > READY </p>
+
+    <svg>
+      <g id='myfunc'>
+        <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
+        <text x="100" y="19">myfunc</text>
+
+        <g>
+          <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
+          <text x="70" y="64">print ('Hello ')</text>
+          <text x="70" y="84">print ('World')</text>
+        </g>
+        
+      </g>
+    </svg>
+
+    <p>Python:</p>
+    <textarea id="output" rows="15" cols="110" style="font-family:Courier;font-size:small">
+    </textarea>
+
+    <p>svg source code:</p>
+    <textarea id="src" rows="15" cols="110" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+      <svg>
+	<g id='myfunc'>
+          <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
+          <text x="100" y="19">myfunc</text>
+	  
+          <g>
+            <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
+            <text x="70" y="64">print ('Hello ')</text>
+            <text x="70" y="84">print ('World')</text>
+          </g>
+          
+	</g>
+      </svg>
+    </textarea>
+    
+    <p>svg grammar:</p>
+    <textarea id="grammar" rows="5" cols="110" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+CodeDrawing {
+  Main = "<html>" "<body>" H1 Drawing "</body>" "</html>"
+  H1 = "<h1>" stuff "</h1>"
+
+  Drawing = "<svg>" CodeContainer "</svg>"
+  
+  CodeContainer = "<g" FunctionName ">" Boundary Title CodeBlock "</g>"
+  
+  Boundary = "<rect" stuff "/>"
+  Title = "<text" stuff ">" name "</text>"
+  CodeBlock = "<g>" RedRect Text+ "</g>"
+  RedRect = "<rect" (~AttrRed any)* AttrRed stuff "/>"
+
+  FunctionName = "id=" sq name sq
+  Text = "<text" stuff ">" stuff "</text>"
+  AttrRed = "fill=" dq "#f8cecc" dq
+
+  stuff = notElementChar+
+  notElementChar = ~"<" ~">" ~"/>" any
+  name = letter alnum*
+  sq = "'"
+  dq = "\""
+}
+    </textarea>
+    
+    <p>Fab for Python (fabricator, rewriter - src⤇Python):</p>
+    <textarea id="fabricate" rows="5" cols="130" style="font-family:Courier;font-size:x-small;background-color:oldlace">
+CodeDrawing {
+  Main [khtml kbody H1 Drawing kbodyend khtmlend] = ‛«Drawing»’
+  H1 [kh1 stuff kh1end] = ‛«kh1»«stuff»«kh1end»’
+
+  Drawing [ksvg CodeContainer ksvgend] = ‛«CodeContainer»’
+  
+  CodeContainer [kgroup FunctionName k Boundary Title CodeBlock kgroupend] = ‛def «FunctionName» ():«CodeBlock»
+«FunctionName» ()’
+  
+  Boundary [krect stuff kend] = ‛«krect»«stuff»«kend»’
+  Title [ktext stuff k name ktextend] = ‛«ktext»«stuff»«k»«name»«ktextend»’
+  CodeBlock [kgroup RedRect Texts+ kgroupend] = ‛\n(-«Texts»-)’
+  RedRect [krect cs* AttrRed stuff kend] = ‛«krect»«cs»«AttrRed»«stuff»«kend»’
+
+  FunctionName [kid sq1 name sq2] = ‛«name»’
+  Text [ktext stuff kend stuff2 ktextend] = ‛\n«stuff2»’
+  AttrRed [kfill dq kred dq2] = ‛«kfill»«dq»«kred»«dq2»’
+
+  stuff [cs+] = ‛«cs»’
+  notElementChar [c] = ‛«c»’
+  name [c1 cs*] = ‛«c1»«cs»’
+  sq  [c] = ‛«c»’
+  dq  [c] = ‛«c»’
+}
+
+    </textarea>
+    
+    <!-- Ohm-JS -->
+    <script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
+
+    <!-- match rewriter tools fabricate -->
+    <script src="fmt-js/fmt-js.js"></script>
+    <script src="fmt-js/transpile.js"></script>
+    
+    <!-- sane fabrication syntax to Python indentation syntax -->
+    <script src="indenter.js"></script>
+    
+    <script>
+      function generate () {
+          src = document.getElementById('src').value;
+          grammar = document.getElementById('grammar').value;
+          let grammarNameArray = grammar.match (/^[^ \t]+/);
+          let grammarName = grammarNameArray [0].replace (/\n/, '');
+          fabricate = document.getElementById('fabricate').value;
+          var success = false;
+          var transpiled = '';
+          var errormessage = 'huh?';
+          [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fabricate, ohm, compilefmt);
+          if (success) {
+              var indented = indenter (transpiled);
+              document.getElementById('output').value = indented;
+              document.getElementById('status').innerHTML = "OK";
+          } else {
+              document.getElementById('output').value = transpiled;
+              document.getElementById('status').innerHTML = "FAILED " + errormessage;
+          }
+      }
+    </script>
+    
+  </body>
+</html>

@@ -8,49 +8,57 @@
 
     <p id="status" > READY </p>
 
-    <svg>
+    <svg width="700">
       <g id='myfunc'>
-        <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
-        <text x="100" y="19">myfunc</text>
+        <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black" data-cid="rx20y0" data-boundingbox="20 0 240 130" data-parent="" data-title="tx100y19"/>
+        <text x="100" y="19" data-cid="tx100y19" data-boundingbox="100 19 172 31" data-parent="rx20y0">myfunc</text>
 
         <g>
-          <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
-          <text x="70" y="64">print ('Hello ')</text>
-          <text x="70" y="84">print ('World')</text>
+          <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450" data-boundingbox="60 40 200 100" data-cid="rx60y40" data-parent="" data-contents="tx70y64 tx70y84"/>
+          <text x="70" y="64" data-cid="tx70y64" data-boundingbox="70 64 252 82" data-parent="rx60y40">print ('Hello')</text>
+          <text x="70" y="84" data-cid="tx70y84" data-boundingbox="70 84 250 96" data-parent="rx60y40">send ('stdout', True)</text>
         </g>
         
       </g>
+      <g transform="translate(300 0)">
+        <g id='myfuncW'>
+	  <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black" data-cid="rx20y0" data-boundingbox="20 0 240 130" data-parent="" data-title="tx100y19"/>
+	  <text x="100" y="19" data-cid="tx100y19" data-boundingbox="100 19 172 31" data-parent="rx20y0">myfuncW</text>
+
+	  <g>
+	    <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450" data-boundingbox="60 40 200 100" data-cid="rx60y40" data-parent="" data-contents="tx70y64 tx70y84"/>
+	    <text x="70" y="64" data-cid="tx70y64" data-boundingbox="70 64 252 82" data-parent="rx60y40">print ('World')</text>
+	    <text x="70" y="84" data-cid="tx70y84" data-boundingbox="70 84 250 96" data-parent="rx60y40">send ('stdout', True)</text>
+	  </g>
+        </g>
+
+      </g>
+
     </svg>
 
     <p>Python:</p>
-    <textarea id="output" rows="15" cols="110" style="font-family:Courier;font-size:small">
+    <textarea id="output" rows="8" cols="110" style="font-family:Courier;font-size:small">
     </textarea>
 
     <br>
     <br>
     <br>
       
-    <p>under-the-hood details (no need to look at this...):</p>
-    <br>
-
+    <h4>under-the-hood details (no need to look at this...):</h4>
     <p>svg source code:</p>
-    <textarea id="src" rows="15" cols="110" style="font-family:Courier;font-size:x-small;background-color:lightgray">
+    <textarea id="src" rows="17" cols="110" style="font-family:Courier;font-size:x-small;background-color:lightgray">
         <html>
           <body>
-
             <h1>SVG as a Programming Language (edited)</h1>
-
             <svg>
               <g id='myfunc'>
                 <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
                 <text x="100" y="19">myfunc</text>
-
                 <g>
                   <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
                   <text x="70" y="64">print ('Hello ')</text>
                   <text x="70" y="84">print ('World')</text>
                 </g>
-
               </g>
             </svg>
           </body>

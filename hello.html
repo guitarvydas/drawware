@@ -4,25 +4,25 @@
     <h1>SVG as a Programming Language</h1>
     <h3>Very Basic - simply shows that SVG can be transpiled</h3>
     
-    <button onclick="generate ()">Transpile to Python</button>
+    <button onclick="generate ()">Transpile to Common Lisp</button>
 
     <p id="status" > READY </p>
 
-    <svg>
+    <svg width="500">
       <g id='myfunc'>
-        <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
-        <text x="100" y="19">myfunc</text>
+	<rect x="20" y="0" width="420" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
+	<text x="180" y="19">myfunc</text>
 
         <g>
-          <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
-          <text x="70" y="64">print ('Hello ')</text>
-          <text x="70" y="84">print ('World')</text>
+	  <rect x="60" y="40" width="340" height="60" fill="#f8cecc" stroke="#b85450"/>
+	  <text x="70" y="64">(format *standard-output* "~%Hello")</text>
+	  <text x="70" y="84">(format *standard-output* "~%World")</text>
         </g>
         
       </g>
     </svg>
 
-    <p>Python:</p>
+    <p>Lisp:</p>
     <textarea id="output" rows="10" cols="110" style="font-family:Courier;font-size:small">
     </textarea>
       
@@ -33,19 +33,19 @@
 
             <h1>SVG as a Programming Language (edited)</h1>
 
-            <svg>
-              <g id='myfunc'>
-                <rect x="20" y="0" width="220" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
-                <text x="100" y="19">myfunc</text>
+    <svg width="500">
+      <g id='myfunc'>
+	<rect x="20" y="0" width="420" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
+	<text x="180" y="19">myfunc</text>
 
-                <g>
-                  <rect x="60" y="40" width="140" height="60" fill="#f8cecc" stroke="#b85450"/>
-                  <text x="70" y="64">print ('Hello ')</text>
-                  <text x="70" y="84">print ('World')</text>
-                </g>
-
-              </g>
-            </svg>
+        <g>
+	  <rect x="60" y="40" width="340" height="60" fill="#f8cecc" stroke="#b85450"/>
+	  <text x="70" y="64">(format *standard-output* "~%Hello")</text>
+	  <text x="70" y="84">(format *standard-output* "~%World")</text>
+        </g>
+        
+      </g>
+    </svg>
           </body>
         </html>
     </textarea>
@@ -63,7 +63,7 @@ CodeDrawing {
   Main = "<html>" "<body>" H1 Drawing "</body>" "</html>"
   H1 = "<h1>" stuff "</h1>"
 
-  Drawing = "<svg>" CodeContainer "</svg>"
+  Drawing = "<svg" stuff ">" CodeContainer "</svg>"
   
   CodeContainer = "<g" FunctionName ">" Boundary Title CodeBlock "</g>"
   
@@ -84,16 +84,17 @@ CodeDrawing {
 }
     </textarea>
     
-    <p>Fab for Python (fabricator, rewriter - src⤇Python):</p>
+    <p>Fab for Common Lisp (fabricator, rewriter - src⤇Python):</p>
     <textarea id="fabricate" rows="5" cols="130" style="font-family:Courier;font-size:x-small;background-color:lightgray">
 CodeDrawing {
   Main [khtml kbody H1 Drawing kbodyend khtmlend] = ‛«Drawing»’
   H1 [kh1 stuff kh1end] = ‛«kh1»«stuff»«kh1end»’
 
-  Drawing [ksvg CodeContainer ksvgend] = ‛«CodeContainer»’
+  Drawing [ksvgbegin svgstuff ksvgend CodeContainer ksvgend] = ‛«CodeContainer»’
   
-  CodeContainer [kgroup FunctionName k Boundary Title CodeBlock kgroupend] = ‛def «FunctionName» ():«CodeBlock»
-«FunctionName» ()’
+  CodeContainer [kgroup FunctionName k Boundary Title CodeBlock kgroupend] = ‛(defun «FunctionName» () «CodeBlock»)
+
+(«FunctionName»)’
   
   Boundary [krect stuff kend] = ‛«krect»«stuff»«kend»’
   Title [ktext stuff k name ktextend] = ‛«ktext»«stuff»«k»«name»«ktextend»’

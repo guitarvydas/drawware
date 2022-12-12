@@ -34,17 +34,30 @@
             <h1>SVG as a Programming Language (edited)</h1>
 
     <svg width="500">
-      <g id='myfunc'>
+      <g id='hello'>
 	<rect x="20" y="0" width="420" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
 	<text x="180" y="19">myfunc</text>
 
         <g>
 	  <rect x="60" y="40" width="340" height="60" fill="#f8cecc" stroke="#b85450"/>
 	  <text x="70" y="64">(format *standard-output* "~%Hello")</text>
-	  <text x="70" y="84">(format *standard-output* "~%World")</text>
+	  <text x="70" y="84">(send 'stdout t)</text>
         </g>
         
       </g>
+
+      <g id='world'>
+	<rect x="20" y="0" width="420" height="130" rx="19.5" ry="19.5" fill="none" stroke="black"/>
+	<text x="180" y="19">myfunc</text>
+
+        <g>
+	  <rect x="60" y="40" width="340" height="60" fill="#f8cecc" stroke="#b85450"/>
+	  <text x="70" y="64">(format *standard-output* "~%World")</text>
+	  <text x="70" y="84">(send 'stdout t)</text>
+        </g>
+        
+      </g>
+
     </svg>
           </body>
         </html>
@@ -63,7 +76,7 @@ CodeDrawing {
   Main = "<html>" "<body>" H1 Drawing "</body>" "</html>"
   H1 = "<h1>" stuff "</h1>"
 
-  Drawing = "<svg" stuff ">" CodeContainer "</svg>"
+  Drawing = "<svg" stuff ">" CodeContainer+ "</svg>"
   
   CodeContainer = "<g" FunctionName ">" Boundary Title CodeBlock "</g>"
   
@@ -90,9 +103,9 @@ CodeDrawing {
   Main [khtml kbody H1 Drawing kbodyend khtmlend] = ‛«Drawing»’
   H1 [kh1 stuff kh1end] = ‛«kh1»«stuff»«kh1end»’
 
-  Drawing [ksvgbegin svgstuff ksvgend CodeContainer ksvgend] = ‛«CodeContainer»’
+  Drawing [ksvgbegin svgstuff ksvgend CodeContainer+ ksvgend] = ‛«CodeContainer»’
   
-  CodeContainer [kgroup FunctionName k Boundary Title CodeBlock kgroupend] = ‛(defun «FunctionName» () «CodeBlock»)
+  CodeContainer [kgroup FunctionName k Boundary Title CodeBlock kgroupend] = ‛\n(defun «FunctionName» () «CodeBlock»)
 
 («FunctionName»)’
   

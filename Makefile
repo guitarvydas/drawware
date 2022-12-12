@@ -1,5 +1,4 @@
-all:
-	@echo See README.md
+all: run
 
 run: runpy
 
@@ -12,3 +11,7 @@ runcl:
 
 install:
 	multigit -r
+
+clean:
+	rm -rf fmt-js
+	rm -rf *~

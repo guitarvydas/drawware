@@ -6,3 +6,4 @@ node_modules/*
 fmt-js/
 junk*
 node_modules/
+generated.py

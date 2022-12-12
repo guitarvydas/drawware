@@ -1,5 +1,4 @@
-all:
-	@echo See README.md
+all: install run
 
 run:
 	python3 generated.py

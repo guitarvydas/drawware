@@ -5,9 +5,10 @@ A VERY simple example of compiling a diagram to executable code.
 In this case, we take a simple SVG drawing and compile it to Python.
 
 To run:
+0. make install
 1. load 'hello.html' into a browser (if using Safari, select View>>Text Encoding>>UTF-8)
 2. push the "Transpile to Python" button
-3. copy/paste the generated Python code into 'generated.py' (overwriting the previous content)
+3. copy/paste the generated Python code into 'generated.py' (overwriting the previous content, if any)
 4. > make
 
 caveat: Yes, this is a silly, small example, but, hopefully demonstrates how this can be done with existing tools.  The interesting stuff begins to happen when you hook rectangles up with 0D (0D === "Concurrency - The Good Parts").

@@ -1,4 +1,4 @@
-all: install run
+all: run
 
 run:
 	python3 generated.py

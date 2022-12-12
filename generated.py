@@ -1,4 +1,3 @@
-
 def myfunc ():
 
   print ('Hello ')

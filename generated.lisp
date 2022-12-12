@@ -1,16 +1,12 @@
 
-(defun send (port data)
-  )
 
 (defun hello () 
 
-  (format *standard-output* "~%Hello")
-  (send 'stdout t))
+  (format *standard-output* "~%Hello"))
 
 (hello)
 (defun world () 
 
-  (format *standard-output* "~%World")
-  (send 'stdout t))
+  (format *standard-output* "~%World"))
 
 (world)

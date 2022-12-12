@@ -1,10 +1,12 @@
 A VERY simple example of compiling a diagram to executable code.
 
+![hello world](readme.png)
+
 In this case, we take a simple SVG drawing and compile it to Python.
 
 To run:
 1. > make install
-2. load 'hello.html' into a browser
+2. load 'hello.html' into a browser (if using Safari, select View>>Text Encoding>>UTF-8)
 3. push the "Transpile to Python" button
 4. copy/paste the generated Python code into 'generated.py' (overwriting the previous content)
 5. > make run

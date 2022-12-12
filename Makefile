@@ -6,3 +6,7 @@ run:
 
 install:
 	multigit -r
+
+clean:
+	rm -rf fmt-js
+	rm -rf *~
